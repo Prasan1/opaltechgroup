@@ -14,6 +14,7 @@ HTML = """
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/opaltechlab-logo.png') }}">
     <!-- Bootstrap 3.4 -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
