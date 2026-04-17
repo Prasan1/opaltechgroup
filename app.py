@@ -455,6 +455,7 @@ HTML = """
         </div>
         <div class="col-md-5">
             <div class="product-card">
+                <img src="{{ url_for('static', filename='images/lokaaro-logo.png') }}" alt="Lokaaro" style="max-height:60px; margin-bottom:15px;">
                 <h3>Lokaaro <span style="font-size:0.65em; color:#888; font-weight:400;">Coming Soon</span></h3>
                 <p>
                     Our next product — currently in development. Stay tuned for updates.
