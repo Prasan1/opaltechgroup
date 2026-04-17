@@ -442,14 +442,22 @@ HTML = """
         </div>
     </div>
     <div class="row" style="margin-top:35px;">
-        <div class="col-md-8 col-md-offset-2">
+        <div class="col-md-5 col-md-offset-1">
             <div class="product-card">
-                <h3>PolicyGen</h3>
+                <img src="{{ url_for('static', filename='images/ranksewa-logo.png') }}" alt="RankSewa" style="max-height:60px; margin-bottom:15px;">
+                <h3>RankSewa</h3>
                 <p>
-                    Generate privacy policies, terms, and compliance documents
-                    without unnecessary complexity or legal overhead.
+                    Nepal's most trusted doctor directory. Find NMC-registered, verified doctors across Nepal by name, specialty, or city.
                 </p>
-                <a href="https://policygen.org" class="btn btn-primary" target="_blank">Visit PolicyGen</a>
+                <a href="https://ranksewa.com" class="btn btn-primary" target="_blank">Visit RankSewa</a>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div class="product-card">
+                <h3>Lokaaro <span style="font-size:0.65em; color:#888; font-weight:400;">Coming Soon</span></h3>
+                <p>
+                    Our next product — currently in development. Stay tuned for updates.
+                </p>
             </div>
         </div>
     </div>
