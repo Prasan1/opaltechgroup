@@ -79,7 +79,7 @@ HTML = """
         /* Hero Section - Mobile Optimized */
         .hero {
             position: relative;
-            background: url('{{ url_for('static', filename='images/opaltechlabcover.png') }}') center center;
+            background: url('{{ url_for('static', filename='images/opaltechlab-linkedin-cover-v2.png') }}') center center;
             background-size: cover;
             background-attachment: scroll;
             color: #fff;
@@ -456,10 +456,11 @@ HTML = """
         <div class="col-md-5">
             <div class="product-card">
                 <img src="{{ url_for('static', filename='images/lokaaro-logo.png') }}" alt="Lokaaro" style="max-height:60px; margin-bottom:15px;">
-                <h3>Lokaaro <span style="font-size:0.65em; color:#888; font-weight:400;">Coming Soon</span></h3>
+                <h3>Lokaaro</h3>
                 <p>
-                    Our next product — currently in development. Stay tuned for updates.
+                    Fair home service price estimates for Charlotte, NC homeowners. Know what plumbing, HVAC, cleaning, and more should cost — before you hire anyone. No signup. No spam.
                 </p>
+                <a href="https://lokaaro.com" class="btn btn-primary" target="_blank">Visit Lokaaro</a>
             </div>
         </div>
     </div>
