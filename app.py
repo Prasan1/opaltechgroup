@@ -7,9 +7,9 @@ HTML = """
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Opal Tech Lab - Forms · Templates · Solutions</title>
+    <title>Opal Tech Lab — Directories · Marketplaces · Local Tools</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes">
-    <meta name="description" content="Opal Tech Lab - A technology studio building clear, compliant, and practical software products for businesses.">
+    <meta name="description" content="Opal Tech Lab — a technology studio building trusted local products, from healthcare directories to home service marketplaces.">
     <meta name="theme-color" content="#2c5f7f">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -393,10 +393,10 @@ HTML = """
 <div class="hero">
     <div class="hero-content">
         <h1>Opal Tech Lab</h1>
-        <div class="tagline">Forms · Templates · Solutions</div>
+        <div class="tagline">Directories · Marketplaces · Local Tools</div>
         <p>
-            A technology studio under <strong>Opal, LLC</strong>, focused on building
-            clear, compliant, and practical software products that businesses can trust.
+            A technology studio under <strong>Opal, LLC</strong>, building trusted local products —
+            from healthcare directories to home service marketplaces.
         </p>
     </div>
 </div>
