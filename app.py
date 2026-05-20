@@ -1,4 +1,5 @@
 from flask import Flask, render_template_string, url_for
+from datetime import datetime
 
 app = Flask(__name__)
 
@@ -7,10 +8,10 @@ HTML = """
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Opal Tech Lab — Directories · Marketplaces · Local Tools</title>
+    <title>Opal Tech Lab — Trust Infrastructure for Real-World Decisions</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes">
-    <meta name="description" content="Opal Tech Lab — a technology studio building trusted local products, from healthcare directories to home service marketplaces.">
-    <meta name="theme-color" content="#2c5f7f">
+    <meta name="description" content="Opal Tech Lab builds trust-focused software for verification, pricing intelligence, and website trust monitoring.">
+    <meta name="theme-color" content="#163b33">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
@@ -19,29 +20,41 @@ HTML = """
     <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <style>
-        /* Mobile-First Design */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
         body {
             font-family: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            color: #333;
+            color: #22302b;
             line-height: 1.6;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
+            background: #ffffff;
         }
 
-        /* Navigation - Mobile First */
+        :root {
+            --opal-deep: #0d1d35;
+            --opal-ink: #111f38;
+            --opal-muted: #5a6a82;
+            --opal-line: #dde3ed;
+            --opal-soft: #f2f5f9;
+            --opal-green: #3a6fd8;
+            --opal-green-dark: #2a57b8;
+            --opal-blue: #2a57b8;
+            --opal-gold: #c8963e;
+        }
+
+        /* Navigation */
         .navbar-custom {
             background: rgba(255, 255, 255, 0.98);
             border: none;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            border-bottom: 1px solid rgba(16, 36, 31, 0.08);
             margin-bottom: 0;
             min-height: 60px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 2px 14px rgba(16, 36, 31, 0.06);
         }
         .navbar-custom .navbar-brand {
             padding: 5px 15px;
@@ -54,21 +67,21 @@ HTML = """
         .navbar-custom .navbar-toggle {
             margin-top: 13px;
             margin-bottom: 13px;
-            border-color: #2c5f7f;
+            border-color: var(--opal-blue);
         }
         .navbar-custom .navbar-toggle .icon-bar {
-            background-color: #2c5f7f;
+            background-color: var(--opal-green-dark);
         }
         .navbar-custom .navbar-nav > li > a {
             padding: 15px 20px;
             font-size: 16px;
-            font-weight: 500;
-            color: #333;
+            font-weight: 600;
+            color: #24352f;
             transition: color 0.3s;
         }
         .navbar-custom .navbar-nav > li > a:hover,
         .navbar-custom .navbar-nav > li > a:focus {
-            color: #2c5f7f;
+            color: var(--opal-green-dark);
             background: transparent;
         }
         .navbar-custom .navbar-collapse {
@@ -76,16 +89,16 @@ HTML = """
             box-shadow: none;
         }
 
-        /* Hero Section - Mobile Optimized */
+        /* Hero */
         .hero {
             position: relative;
-            background: url('{{ url_for('static', filename='images/opaltechlab-linkedin-cover-v2.png') }}') center center;
+            background: url('{{ url_for('static', filename='images/opaltechlabcover.png') }}') center center;
             background-size: cover;
             background-attachment: scroll;
             color: #fff;
-            padding: 100px 20px 80px;
+            padding: 105px 20px 78px;
             text-align: center;
-            min-height: 500px;
+            min-height: 540px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -93,71 +106,104 @@ HTML = """
         .hero::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, rgba(31, 60, 74, 0.88), rgba(15, 32, 39, 0.92));
+            inset: 0;
+            background: linear-gradient(160deg, rgba(10, 20, 40, 0.72) 0%, rgba(6, 13, 28, 0.82) 100%);
         }
         .hero-content {
             position: relative;
             z-index: 2;
-            max-width: 100%;
+            max-width: 920px;
             margin: 0 auto;
             padding: 0 10px;
         }
-        .hero h1 {
-            font-size: 32px;
+        .hero-kicker {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid rgba(255,255,255,0.18);
+            background: rgba(255,255,255,0.08);
+            border-radius: 999px;
+            padding: 7px 14px;
+            color: rgba(255,255,255,0.86);
+            font-size: 11px;
             font-weight: 700;
-            margin-bottom: 15px;
-            text-shadow: 0 2px 20px rgba(0, 0, 0, 0.4);
-            letter-spacing: -0.5px;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            margin-bottom: 18px;
+        }
+        .hero-kicker-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #6a9de8;
+            box-shadow: 0 0 0 4px rgba(106,157,232,0.18);
+        }
+        .hero h1 {
+            font-size: 34px;
+            font-weight: 800;
+            margin-bottom: 16px;
+            text-shadow: 0 2px 22px rgba(0, 0, 0, 0.35);
+            letter-spacing: -0.045em;
+            line-height: 1.06;
         }
         .hero .tagline {
             font-size: 16px;
-            font-weight: 500;
+            font-weight: 600;
             margin-bottom: 20px;
-            opacity: 0.95;
-            color: #87CEEB;
-            letter-spacing: 1px;
+            opacity: 0.96;
+            color: #8ab2e8;
+            letter-spacing: 0.4px;
         }
         .hero p {
             font-size: 15px;
-            max-width: 100%;
+            max-width: 760px;
             margin: 0 auto;
-            opacity: 0.92;
-            line-height: 1.7;
+            opacity: 0.91;
+            line-height: 1.8;
+            color: rgba(255,255,255,0.88);
         }
 
-        /* Sections - Mobile First */
+        /* Sections */
         .section {
-            padding: 50px 20px;
+            padding: 52px 20px;
         }
         .section-alt {
-            background: #f8f9fa;
+            background: var(--opal-soft);
+            border-top: 1px solid var(--opal-line);
+            border-bottom: 1px solid var(--opal-line);
         }
         .section h2 {
             margin-bottom: 30px;
-            font-weight: 700;
+            font-weight: 800;
             font-size: 26px;
-            color: #1a1a1a;
+            color: var(--opal-ink);
+            letter-spacing: -0.03em;
+        }
+        .section-label {
+            color: var(--opal-green-dark);
+            display: block;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: .09em;
+            text-transform: uppercase;
+            margin-bottom: 10px;
         }
         .about-text {
             max-width: 100%;
             margin: 0 auto;
             font-size: 16px;
             line-height: 1.75;
-            color: #555;
+            color: var(--opal-muted);
         }
         .about-text p {
             margin-bottom: 18px;
         }
         .about-text strong {
-            color: #2c5f7f;
-            font-weight: 600;
+            color: var(--opal-green-dark);
+            font-weight: 700;
         }
 
-        /* Values - Mobile Optimized */
+        /* Values */
         .values {
             list-style: none;
             max-width: 100%;
@@ -168,79 +214,168 @@ HTML = """
             margin-bottom: 15px;
             padding: 18px;
             background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--opal-line);
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(16, 36, 31, 0.04);
             font-size: 15px;
-            transition: transform 0.2s, box-shadow 0.2s;
+            color: var(--opal-muted);
+            transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
         }
         .values li:active {
             transform: scale(0.98);
         }
         .values li strong {
-            color: #2c5f7f;
-            font-weight: 600;
+            color: var(--opal-ink);
+            font-weight: 800;
             font-size: 17px;
             display: block;
             margin-bottom: 5px;
         }
 
-        /* Product Card - Mobile Optimized */
+        /* Product Cards */
+        .products-intro {
+            max-width: 720px;
+            margin: 0 auto 26px;
+            color: var(--opal-muted);
+            font-size: 15px;
+            line-height: 1.75;
+        }
+        /* Equal-height row: make all col-md-4 siblings stretch to row height */
+        .products-row {
+            display: flex;
+            flex-wrap: wrap;
+            margin-left: -15px;
+            margin-right: -15px;
+        }
+        .products-row .product-col {
+            padding-left: 15px;
+            padding-right: 15px;
+            width: 100%;
+            display: flex;
+            margin-bottom: 24px;
+        }
+        @media (min-width: 992px) {
+            .products-row .product-col {
+                width: 33.3333%;
+                margin-bottom: 0;
+            }
+        }
         .product-card {
-            border: 1px solid #e0e0e0;
-            padding: 30px 20px;
-            border-radius: 12px;
+            border: 1px solid var(--opal-line);
+            padding: 32px 24px 28px;
+            border-radius: 16px;
             text-align: center;
             background: #fff;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-            max-width: 100%;
-            margin: 0 auto;
+            box-shadow: 0 4px 20px rgba(16, 36, 31, 0.07);
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .product-card-top {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .product-card-top img {
+            max-height: 56px;
+            max-width: 200px;
+            margin-bottom: 14px;
+            object-fit: contain;
         }
         .product-card h3 {
             margin-top: 0;
-            margin-bottom: 15px;
-            font-weight: 700;
-            font-size: 24px;
-            color: #1a1a1a;
+            margin-bottom: 10px;
+            font-weight: 800;
+            font-size: 22px;
+            color: var(--opal-ink);
+            letter-spacing: -0.025em;
+        }
+        .product-tag {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 999px;
+            background: #eaf0fb;
+            color: var(--opal-green-dark);
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: .06em;
+            text-transform: uppercase;
+            padding: 5px 11px;
+            margin-bottom: 12px;
         }
         .product-card p {
-            font-size: 15px;
-            line-height: 1.7;
-            color: #666;
-            margin-bottom: 25px;
+            font-size: 14px;
+            line-height: 1.75;
+            color: var(--opal-muted);
+            margin-bottom: 0;
+            flex: 1;
+        }
+        .product-card-btn {
+            margin-top: 24px;
         }
 
-        /* Buttons - Touch Optimized */
+        /* Buttons */
         .btn-primary {
-            background: #2c5f7f;
+            background: var(--opal-green-dark);
             border: none;
-            padding: 16px 40px;
-            font-size: 17px;
-            font-weight: 600;
-            border-radius: 8px;
+            padding: 15px 30px;
+            font-size: 16px;
+            font-weight: 700;
+            border-radius: 10px;
             transition: background 0.3s, transform 0.1s;
             display: inline-block;
             min-height: 48px;
-            line-height: 1;
+            line-height: 1.1;
+            color: #fff;
         }
         .btn-primary:active {
             transform: scale(0.97);
-            background: #1e4a5f;
+            background: #1e3f8a;
         }
         .btn-primary:hover,
         .btn-primary:focus {
-            background: #1e4a5f;
+            background: #1a3d96;
             color: #fff;
         }
 
-        /* Contact - Mobile Optimized */
+        /* Thesis strip */
+        .thesis-strip {
+            background: var(--opal-deep);
+            color: #fff;
+            padding: 34px 20px;
+            border-top: 1px solid rgba(255,255,255,0.06);
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+        .thesis-strip-inner {
+            max-width: 980px;
+            margin: 0 auto;
+            display: grid;
+            gap: 20px;
+        }
+        .thesis-item strong {
+            display: block;
+            color: #fff;
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+        .thesis-item span {
+            color: rgba(255,255,255,0.62);
+            font-size: 13px;
+            line-height: 1.55;
+        }
+
+        /* Contact */
         .contact-section p {
             font-size: 16px;
-            color: #555;
+            color: var(--opal-muted);
             line-height: 1.7;
         }
         .contact-section a {
-            color: #2c5f7f;
-            font-weight: 600;
+            color: var(--opal-green-dark);
+            font-weight: 700;
             text-decoration: none;
             word-break: break-word;
         }
@@ -250,14 +385,14 @@ HTML = """
 
         /* Footer */
         .footer {
-            background: #1a1a1a;
+            background: #111816;
             padding: 25px 20px;
             text-align: center;
-            color: #aaa;
+            color: rgba(255,255,255,0.55);
             font-size: 13px;
         }
 
-        /* Tablet and Desktop Enhancements */
+        /* Tablet/Desktop */
         @media (min-width: 768px) {
             .navbar-custom {
                 min-height: 70px;
@@ -274,25 +409,24 @@ HTML = """
             }
 
             .hero {
-                padding: 140px 20px 120px;
-                min-height: 650px;
+                padding: 150px 20px 125px;
+                min-height: 670px;
                 background-attachment: fixed;
             }
             .hero h1 {
-                font-size: 56px;
+                font-size: 58px;
                 margin-bottom: 20px;
             }
             .hero .tagline {
                 font-size: 22px;
-                margin-bottom: 25px;
+                margin-bottom: 24px;
             }
             .hero p {
                 font-size: 19px;
-                max-width: 750px;
             }
 
             .section {
-                padding: 80px 40px;
+                padding: 84px 40px;
             }
             .section h2 {
                 font-size: 38px;
@@ -300,47 +434,62 @@ HTML = """
             }
             .about-text {
                 font-size: 17px;
-                max-width: 800px;
+                max-width: 820px;
             }
             .about-text p {
                 margin-bottom: 20px;
             }
 
             .values {
-                max-width: 800px;
+                max-width: 860px;
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 16px;
             }
             .values li {
                 padding: 22px;
-                margin-bottom: 18px;
-                font-size: 16px;
+                margin-bottom: 0;
+                font-size: 15px;
             }
             .values li:hover {
                 transform: translateY(-3px);
-                box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+                box-shadow: 0 8px 24px rgba(16, 36, 31, 0.08);
+                border-color: rgba(42,87,184,0.22);
             }
             .values li strong {
                 font-size: 18px;
             }
 
             .product-card {
-                padding: 45px;
-                max-width: 550px;
-                transition: transform 0.3s, box-shadow 0.3s;
+                padding: 36px 28px 30px;
+                transition: transform 0.25s, box-shadow 0.25s, border-color 0.2s;
             }
             .product-card:hover {
-                transform: translateY(-5px);
-                box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+                transform: translateY(-4px);
+                box-shadow: 0 16px 36px rgba(16, 36, 31, 0.11);
+                border-color: rgba(42,87,184,0.28);
             }
             .product-card h3 {
-                font-size: 30px;
+                font-size: 24px;
             }
             .product-card p {
-                font-size: 16px;
+                font-size: 15px;
             }
 
             .btn-primary {
-                padding: 14px 36px;
-                font-size: 17px;
+                padding: 14px 28px;
+                font-size: 16px;
+            }
+
+            .thesis-strip-inner {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+                gap: 28px;
+            }
+            .thesis-item strong {
+                font-size: 15px;
+            }
+            .thesis-item span {
+                font-size: 13px;
             }
 
             .contact-section p {
@@ -355,10 +504,10 @@ HTML = """
 
         @media (min-width: 992px) {
             .hero h1 {
-                font-size: 60px;
+                font-size: 64px;
             }
             .section {
-                padding: 90px 40px;
+                padding: 92px 40px;
             }
         }
     </style>
@@ -369,7 +518,7 @@ HTML = """
 <nav class="navbar navbar-custom navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse" aria-label="Toggle navigation">
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -392,29 +541,52 @@ HTML = """
 <!-- Hero -->
 <div class="hero">
     <div class="hero-content">
+        <div class="hero-kicker">
+            <span class="hero-kicker-dot" aria-hidden="true"></span>
+            Verification · Pricing Intelligence · Trust Monitoring
+        </div>
         <h1>Opal Tech Lab</h1>
-        <div class="tagline">Directories · Marketplaces · Local Tools</div>
+        <div class="tagline">Software that reduces uncertainty before important decisions.</div>
         <p>
-            A technology studio under <strong>Opal, LLC</strong>, building trusted local products —
-            from healthcare directories to home service marketplaces.
+            Opal Tech Lab, under <strong>Opal, LLC</strong>, builds trust-focused software
+            that helps people verify information, understand risk, and make clearer decisions —
+            from doctor verification to home repair pricing and website trust monitoring.
         </p>
     </div>
 </div>
 
 <!-- About -->
 <div id="about" class="section container text-center">
-    <h2>Who We Are</h2>
+    <span class="section-label">About</span>
+    <h2>Trust infrastructure for practical decisions</h2>
     <div class="about-text">
         <p>
             Opal Tech Lab is the product and experimentation arm of <strong>Opal, LLC</strong>.
-            We design and operate focused software tools that solve real operational
-            and compliance problems for modern businesses.
+            We build focused software tools for places where people need more clarity before
+            they choose, hire, publish, or trust.
         </p>
         <p>
-            We believe good software should be <strong>simple</strong>,
-            <strong>transparent</strong>, and <strong>maintainable</strong> — not bloated,
-            confusing, or built for legal teams instead of users.
+            Our products are intentionally simple: verify what matters, explain what is uncertain,
+            and avoid dark patterns that turn users into leads before they understand the decision.
         </p>
+    </div>
+</div>
+
+<!-- Thesis Strip -->
+<div class="thesis-strip">
+    <div class="thesis-strip-inner">
+        <div class="thesis-item">
+            <strong>Verify before trust</strong>
+            <span>RankSewa helps people check doctor identity and registration signals before choosing care.</span>
+        </div>
+        <div class="thesis-item">
+            <strong>Understand before paying</strong>
+            <span>Lokaaro helps homeowners understand local repair pricing before hiring or approving a quote.</span>
+        </div>
+        <div class="thesis-item">
+            <strong>Monitor before it breaks</strong>
+            <span>PolicyGen watches for website trust gaps before customers, clients, or regulators notice.</span>
+        </div>
     </div>
 </div>
 
@@ -423,12 +595,13 @@ HTML = """
     <div class="container">
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
+                <span class="section-label text-center">Values</span>
                 <h2 class="text-center">What We Care About</h2>
                 <ul class="values">
-                    <li><strong>Clarity:</strong> Products should explain themselves.</li>
-                    <li><strong>Trust:</strong> We don't sell user data or design dark patterns.</li>
-                    <li><strong>Simplicity:</strong> Fewer features, done well.</li>
-                    <li><strong>Longevity:</strong> Built to last, not to churn.</li>
+                    <li><strong>Clarity:</strong> Products should explain what they know, what they do not know, and what users can do next.</li>
+                    <li><strong>Trust:</strong> We do not build dark patterns, lead traps, or tools that quietly sell user intent.</li>
+                    <li><strong>Focus:</strong> We prefer narrow tools that solve real problems over bloated platforms that promise everything.</li>
+                    <li><strong>Longevity:</strong> We build systems that can improve over time through better evidence, feedback, and monitoring.</li>
                 </ul>
             </div>
         </div>
@@ -439,28 +612,61 @@ HTML = """
 <div id="products" class="section container">
     <div class="row">
         <div class="col-md-12 text-center">
-            <h2>Products</h2>
+            <span class="section-label">Products</span>
+            <h2>Focused tools, one trust-first direction</h2>
+            <p class="products-intro">
+                Each product tackles a different kind of uncertainty: professional identity,
+                local pricing, and website trust.
+            </p>
         </div>
     </div>
-    <div class="row" style="margin-top:35px;">
-        <div class="col-md-5 col-md-offset-1">
+    <div class="products-row" style="margin-top:28px;">
+        <div class="product-col">
             <div class="product-card">
-                <img src="{{ url_for('static', filename='images/ranksewa-logo.png') }}" alt="RankSewa" style="max-height:60px; margin-bottom:15px;">
-                <h3>RankSewa</h3>
-                <p>
-                    Nepal's most trusted doctor directory. Find NMC-registered, verified doctors across Nepal by name, specialty, or city.
-                </p>
-                <a href="https://ranksewa.com" class="btn btn-primary" target="_blank">Visit RankSewa</a>
+                <div class="product-card-top">
+                    <img src="{{ url_for('static', filename='images/ranksewa-logo.png') }}" alt="RankSewa">
+                    <div class="product-tag">Doctor Verification</div>
+                    <h3>RankSewa</h3>
+                    <p>
+                        A verification-first doctor directory for Nepal. Search doctors by name,
+                        specialty, or city and look for clear registration and verification signals.
+                    </p>
+                </div>
+                <div class="product-card-btn">
+                    <a href="https://ranksewa.com" class="btn btn-primary" target="_blank" rel="noopener">Visit RankSewa</a>
+                </div>
             </div>
         </div>
-        <div class="col-md-5">
+        <div class="product-col">
             <div class="product-card">
-                <img src="{{ url_for('static', filename='images/lokaaro-logo.png') }}" alt="Lokaaro" style="max-height:60px; margin-bottom:15px;">
-                <h3>Lokaaro</h3>
-                <p>
-                    Fair home service price estimates for Charlotte, NC homeowners. Know what plumbing, HVAC, cleaning, and more should cost — before you hire anyone. No signup. No spam.
-                </p>
-                <a href="https://lokaaro.com" class="btn btn-primary" target="_blank">Visit Lokaaro</a>
+                <div class="product-card-top">
+                    <img src="{{ url_for('static', filename='images/lokaaro-logo.png') }}" alt="Lokaaro">
+                    <div class="product-tag">Pricing Intelligence</div>
+                    <h3>Lokaaro</h3>
+                    <p>
+                        Local home repair pricing guidance for homeowners. Check typical ranges,
+                        compare quotes, and understand what to ask before hiring anyone.
+                    </p>
+                </div>
+                <div class="product-card-btn">
+                    <a href="https://lokaaro.com" class="btn btn-primary" target="_blank" rel="noopener">Visit Lokaaro</a>
+                </div>
+            </div>
+        </div>
+        <div class="product-col">
+            <div class="product-card">
+                <div class="product-card-top">
+                    <img src="{{ url_for('static', filename='images/policygen-logo.png') }}" alt="PolicyGen" onerror="this.style.display='none';">
+                    <div class="product-tag">Website Trust Monitoring</div>
+                    <h3>PolicyGen</h3>
+                    <p>
+                        Website trust monitoring for SMBs and agencies. Scan for missing policy links,
+                        broken legal pages, tracking disclosure gaps, and trust-breaking changes.
+                    </p>
+                </div>
+                <div class="product-card-btn">
+                    <a href="https://policygen.org" class="btn btn-primary" target="_blank" rel="noopener">Visit PolicyGen</a>
+                </div>
             </div>
         </div>
     </div>
@@ -469,6 +675,7 @@ HTML = """
 <!-- Contact -->
 <div id="contact" class="section section-alt">
     <div class="container text-center contact-section">
+        <span class="section-label">Contact</span>
         <h2>Contact</h2>
         <p>
             For business inquiries or questions, reach us at
@@ -487,20 +694,16 @@ HTML = """
 <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
 
 <script>
-    // Smooth scroll with offset for fixed navbar (responsive)
     $(document).ready(function(){
         $('a[href^="#"]').on('click', function(e) {
             e.preventDefault();
             var target = $(this.getAttribute('href'));
             if(target.length) {
-                // Different navbar heights for mobile vs desktop
                 var offset = window.innerWidth >= 768 ? 70 : 60;
-                // Faster scroll animation (400ms instead of 800ms)
                 $('html, body').stop().animate({
                     scrollTop: target.offset().top - offset
                 }, 400);
 
-                // Close mobile menu after clicking
                 if(window.innerWidth < 768) {
                     $('.navbar-collapse').collapse('hide');
                 }
@@ -515,10 +718,8 @@ HTML = """
 
 @app.route("/")
 def home():
-    from datetime import datetime
     return render_template_string(HTML, year=datetime.now().year)
 
 
 if __name__ == "__main__":
     app.run(debug=True)
-
