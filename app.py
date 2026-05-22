@@ -585,7 +585,7 @@ HTML = """
         </div>
         <div class="thesis-item">
             <strong>Monitor before it breaks</strong>
-            <span>PolicyGen watches for website trust gaps before customers, clients, or regulators notice.</span>
+            <span>PolicyGen watches for website trust gaps before customers or clients notice.</span>
         </div>
     </div>
 </div>
@@ -660,8 +660,9 @@ HTML = """
                     <div class="product-tag">Website Trust Monitoring</div>
                     <h3>PolicyGen</h3>
                     <p>
-                        Website trust monitoring for SMBs and agencies. Scan for missing policy links,
-                        broken legal pages, tracking disclosure gaps, and trust-breaking changes.
+                        Continuous website trust monitoring that helps teams catch broken disclosures,
+                        tracking changes, inaccessible policy pages, and public trust issues before
+                        customers notice.
                     </p>
                 </div>
                 <div class="product-card-btn">
