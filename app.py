@@ -624,7 +624,7 @@ HTML = """
         <div class="product-col">
             <div class="product-card">
                 <div class="product-card-top">
-                    <img src="{{ url_for('static', filename='images/ranksewa-logo.png') }}" alt="RankSewa">
+                    <img src="{{ url_for('static', filename='images/ranksewa-logo.svg') }}" alt="RankSewa" style="height:40px;width:40px;">
                     <div class="product-tag">Doctor Verification</div>
                     <h3>RankSewa</h3>
                     <p>
@@ -640,7 +640,7 @@ HTML = """
         <div class="product-col">
             <div class="product-card">
                 <div class="product-card-top">
-                    <img src="{{ url_for('static', filename='images/lokaaro-logo.png') }}" alt="Lokaaro">
+                    <img src="{{ url_for('static', filename='images/lokaaro-logo.svg') }}" alt="Lokaaro" style="height:40px;width:40px;">
                     <div class="product-tag">Pricing Intelligence</div>
                     <h3>Lokaaro</h3>
                     <p>
@@ -656,7 +656,7 @@ HTML = """
         <div class="product-col">
             <div class="product-card">
                 <div class="product-card-top">
-                    <img src="{{ url_for('static', filename='images/policygen-logo.svg') }}" alt="PolicyGen">
+                    <img src="{{ url_for('static', filename='images/policygen-logo.svg') }}" alt="PolicyGen" style="height:40px;width:40px;">
                     <div class="product-tag">Website Trust Monitoring</div>
                     <h3>PolicyGen</h3>
                     <p>
