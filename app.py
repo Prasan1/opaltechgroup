@@ -656,7 +656,7 @@ HTML = """
         <div class="product-col">
             <div class="product-card">
                 <div class="product-card-top">
-                    <img src="{{ url_for('static', filename='images/policygen-logo.png') }}" alt="PolicyGen" onerror="this.style.display='none';">
+                    <img src="{{ url_for('static', filename='images/policygen-logo.svg') }}" alt="PolicyGen">
                     <div class="product-tag">Website Trust Monitoring</div>
                     <h3>PolicyGen</h3>
                     <p>
